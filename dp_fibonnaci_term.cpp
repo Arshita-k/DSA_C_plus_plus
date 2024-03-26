@@ -23,7 +23,7 @@ int fib(int n,vector<int>& dp)
 
 int main()
 {
-    int num;
+    int num,n;
     cout<<"Enter Nth term : ";
     cin>>num;
     vector<int> dp(num+1,-1);
