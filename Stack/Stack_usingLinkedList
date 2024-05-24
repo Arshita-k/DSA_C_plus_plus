@@ -1,0 +1,84 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node {
+    public:
+        int data;
+        Node* next;
+        Node(int value)
+        {
+            this->data=value;
+            this->next=NULL;
+        }
+};
+
+class Stack {
+    Node* top; //top is a pointer of type node
+    public:
+    Stack() { top = NULL; } //intialise that top is empty 
+    void push(int value);
+    void pop();
+    int peek();
+    bool isEmpty();
+    void display();
+    ~Stack(){
+        while(!isEmpty()){
+            pop();
+        }
+    }
+};
+void Stack::push(int value)
+{
+    Node* newnode = new Node(value);
+    newnode->next = top;
+    top=newnode;
+
+}
+void Stack::pop()
+{
+   if(isEmpty())
+   {
+      cout<<"Stack is empty"<<endl;
+   }
+   Node* temp = top;
+   top = top->next;
+   delete temp;
+}
+int Stack::peek()
+{
+   if(isEmpty())
+   {
+      cout<<"Stack is empty"<<endl;
+      return 0;
+   }
+   return top->data;
+}
+bool Stack::isEmpty()
+{
+    return top == NULL;
+}
+void Stack::display()
+{
+    if(isEmpty()){
+        cout<<"Stack is empty"<<endl;
+    }
+    Node* temp = top;
+    while(temp != NULL){
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<"NULL"<<endl;
+}
+
+int main()
+{
+    Stack S1;
+    S1.push(10);
+    S1.push(20);
+    S1.push(30);
+    S1.push(40);
+    S1.display();
+    S1.pop();
+    cout<<S1.peek()<<" is top element of stack"<<endl;
+    return 0;
+}
