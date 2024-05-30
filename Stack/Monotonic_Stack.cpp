@@ -83,4 +83,11 @@ A Monotonically Decreasing Stack is a stack where elements are placed in decreas
 must be smaller than or equal to the one below it. If a new element is greater than top of stack then we remove elements from the top of the stack until 
 we find one that is greater or equal to the new element, or until the stack is empty. This ensures that the stack always stays in decreasing order.
 
+The functions associated with stack are: 
+empty() – Returns whether the stack is empty – Time Complexity : O(1) 
+size() – Returns the size of the stack – Time Complexity : O(1) 
+top() – Returns a reference to the top most element of the stack – Time Complexity : O(1) 
+push(g) – Adds the element ‘g’ at the top of the stack – Time Complexity : O(1) 
+pop() – Deletes the most recent entered element of the stack – Time Complexity : O(1)
+
 */
