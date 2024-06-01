@@ -5,43 +5,43 @@ int front =-1,rear = -1;
 int Deque[MAX];
 void EnQueuefront(int value)
 {
-    if((front==0 && rear==MAX-1)|| (front==rear+1)) 
+    if((front==0 && rear==MAX-1)|| (front==rear+1))  //(rear+1)%MAX==front
     {
         cout<<"Deque is Full"<<endl;
         return;
     }
-    else if(front==-1 && rear==-1)
+    else if(front==-1 && rear==-1) //at present queue is empty
     {
         front=rear=0; 
-        Deque[front]=value;
+        Deque[front]=value; //insertion from front 
         cout<<value<<" Inserted from front "<<endl;
     }
     else if(front==0)
     {
-        front=MAX-1;
+        front=MAX-1; //if front is already at zero boundary and still queue is empty then we will intialise front to max-1
         Deque[front]=value;
         cout<<value<<" Inserted from front"<<endl;
     }
     else
     {
-        Deque[--front]=value;
+        Deque[--front]=value; //if space is there then we will insert the element at front of the present element
         cout<<value<<" Inserted from front"<<endl;
     }
 }
 void EnqueueRear(int value)
 {
-    if((front==0 && rear==MAX-1)|| (front==rear+1)) 
+    if((front==0 && rear==MAX-1)|| (front==rear+1)) //(rear+1)%MAX==front
     {
         cout<<"Queue is Full"<<endl;
         return;
     }
-    else if(front==-1 && rear==-1)
+    else if(front==-1 && rear==-1) //if queue is empty 
     {
         front=rear=0; 
-        Deque[rear]=value;
+        Deque[rear]=value; //insertion at rear
         cout<<value<<" Inserted from rear "<<endl;
     }
-    else if(rear==MAX-1)
+    else if(rear==MAX-1) //if reached at last and queue is not full at first then insert value at rear=0
     {
         rear=0;
         Deque[rear]=value;
@@ -49,7 +49,7 @@ void EnqueueRear(int value)
     }
     else
     {
-        Deque[++rear]=value;
+        Deque[++rear]=value; //otherwise will insert value at rear
         cout<<value<<" Inserted from rear"<<endl;
     }
 }
@@ -83,7 +83,7 @@ void DeQueuefront()
         cout<<"Extracted element is"<<Deque[front]<<endl;
         front=rear=-1;
     }
-    else if(front==MAX-1)
+    else if(front==MAX-1) //if front points to max-1 location it should return to 0 
     {
         cout<<"Extracted element is"<<Deque[front]<<endl;
         front=0;
@@ -106,7 +106,7 @@ void DeQueueRear()
         cout<<"Extracted element is"<<Deque[front]<<endl;
         front=rear=-1;
     }
-    else if(rear==0)
+    else if(rear==0) //if rear points to 0 it should return to max-1 position
     {
         cout<<"Extracted element is"<<Deque[rear]<<endl;
         rear=MAX-1;
