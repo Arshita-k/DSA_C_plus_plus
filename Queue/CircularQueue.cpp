@@ -32,6 +32,7 @@ void Dequeue()
     }
     else if(front==rear)//last element is target
     {
+        front=rear=-1;
         cout<<"Extracted element is"<<Queue[front]<<endl;
     }
     else
