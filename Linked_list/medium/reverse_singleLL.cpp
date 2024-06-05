@@ -10,7 +10,7 @@ struct Node
         next=NULL;
     }
 };
-//ITERATIVE APPROACH
+//ITERATIVE APPROACH  // time complexity O(N) and space complexity O(1)
 Node* reverse(Node*& head)
 {
     Node* temp = head;
@@ -23,6 +23,19 @@ Node* reverse(Node*& head)
         temp=front;
     }
     return prev;
+}
+//RECURSIVE APPROACH   // time complexity O(N) and space complexity O(1)
+Node* reverse2(Node*& head)
+{
+    if(head==NULL || head->next == NULL)
+    {
+        return head;
+    }
+    Node* newhead = reverse(head->next);
+    Node* front=head->next;
+    front->next=head;
+    head->next=NULL;
+    return newhead;
 }
 void printLinkedList(Node*& head) 
 {
