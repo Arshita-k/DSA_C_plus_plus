@@ -44,5 +44,4 @@ Enter number : 11
 frequency of 11 0
 Enter number : 97
 frequency of 97 2
-
 */
