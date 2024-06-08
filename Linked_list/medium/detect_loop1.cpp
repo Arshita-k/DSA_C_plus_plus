@@ -21,17 +21,14 @@ bool find_loop(Node*& head)
     Node* slow=head;
     while(fast!=NULL && fast->next!=NULL)
     {
-        if(slow!=fast)
-        {
             slow=slow->next;
             fast=fast->next->next;
-        }
-        else
-        {
-            return true;
-        }
+            if(slow==fast)
+            {
+                return true;
+            }
     }
-    return false;
+    return false;  
 }
 int main()
 {
