@@ -9,7 +9,7 @@ int main()
     cout<<"Enter number of Edges : ";
     cin>>m;
     //considering its 1 based indexing
-    int adj[n+1][n+1]={0};
+    int adj[n+1][n+1]={0}; //Space comlexity n*n
     //adjacency matrix
     for(int i=0;i<m;i++)
     {
