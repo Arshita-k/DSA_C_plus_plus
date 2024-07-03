@@ -1,32 +1,50 @@
 #include <bits/stdc++.h>
 using namespace std;
-//monotonic nature of array is necessary i.e. array is sorted
-int binarySearch(int arr[],int l,int r,int value)
-{
-    int mid=l+(r-1)/2; //if l+r there can be segmentation fault (out of bound)
-    if(arr[mid]==value) // T(n) = k+ T(n/2) = O(nlogn) time complexity
-    {
-        return mid;
-    }
-    if(arr[mid]<value)
-    {
-        l=mid+1;
-    }
-    else
-    {
-        r=mid-1;
-    }
-    return-1;
 
+//best case O(1) 
+//average case O(logn)
+//worst case O(logn)
+int BinarySearch(vector<int>&arr,int target)
+{
+    int n=arr.size();
+    int start=0;
+    int end=n-1;
+    while(start<=end)
+    {
+        int mid=start+(end-start)/2;
+        if(arr[start]==target)
+        {
+            cout<<arr[start]<<" == "<<target<<endl;
+            return start;
+        }
+        else if(arr[end]==target)
+        {
+            cout<<arr[end]<<" == "<<target<<endl;
+            return end;
+        }
+        if(arr[mid]==target)
+        {
+            cout<<arr[mid]<<" == "<<target<<endl;
+            return mid;
+        }
+        else if(arr[mid]<target)
+        {
+            cout<<arr[mid]<<" < "<<target<<endl;
+            start=mid+1;
+        }
+        else
+        {
+            cout<<arr[mid]<<" > "<<target<<endl;
+            end=mid-1;
+
+        }
+    }
+    return 0;
 }
 int main()
 {
-    int arr[]={2,3,4,10,40};
-    int value=5;
-    int size=sizeof(arr)/sizeof(arr[0]);
-    int result=binarySearch(arr,0,size-1,value);
-    (result == -1)
-        ? cout <<"Element is not present in array"
-        : cout <<"Element is present at index "<<result;
+    vector<int>arr={2,5,8,12,16,23,38,56,72,91};
+    int result=0;
+    result=BinarySearch(arr,2);
     return 0;
 }
