@@ -14,7 +14,7 @@ void printS(int ind, vector<int>&ds, int s,int sum,int arr[],int n)
         }
         return;
     }
-    ds.push_back(ind);
+    ds.push_back(arr[ind]);
     s+=arr[ind];
     //Take elements
     printS(ind+1,ds,s,sum,arr,n);
