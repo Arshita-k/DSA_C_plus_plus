@@ -1,50 +1,41 @@
+// Online C++ compiler to run C++ program online
 #include <bits/stdc++.h>
 using namespace std;
-void dfs(int node,vector<int>adjList[],int visited[],vector<int>&list)
+
+void addEdge(vector<vector<int>>&adj,vector<vector<int>>&edges)
 {
-    visited[node]=1;
-    list.push_back(node);
-    for(auto it: adjList[node])
+    int numVertices=edges.size();
+    for(int i=0;i<numVertices;i++)
     {
-        if(!visited[it])
-        {
-            dfs(it,adjList,visited,list);
-        }
+        adj[edges[i][0]].push_back(edges[i][1]);
     }
 }
-vector<int>DFS(int n,vector<int>adjList[],int initial)
+
+void dfs(vector<vector<int>>&adj,vector<int>&visited,int source)
 {
-    int visited[n]={0};
-    vector<int>list;
-    dfs(initial,adjList,visited,list);
-    return list;
-}
-void addEdge(vector<int>adjList[],int u,int v)
-{
-    adjList[u].push_back(v);
-    adjList[v].push_back(u);
-}
-void print(vector<int>&adj)
-{
-    int i=0;
-    while(i<adj.size())
+    
+    visited[source]=1;
+    cout<<source<<" ";
+        
+    for(auto neighbor : adj[source])
     {
-        cout<<adj[i]<<" ";
-        i++;
+       if(visited[neighbor]==0)
+       {
+           dfs(adj,visited,neighbor);
+       }
     }
+    
 }
-int main()
-{
-    vector<int>adjList[6];
-    addEdge(adjList,1,2);
-    addEdge(adjList,1,5);
-    addEdge(adjList,2,5);   
-    addEdge(adjList,2,3);
-    addEdge(adjList,5,3);
-    addEdge(adjList,5,4);
-    addEdge(adjList,3,4);
-    vector<int>result=DFS(6,adjList,3);
-    print(result);
+int main() {
+    
+    int v=6;
+    vector<vector<int>>adj(v);
+    vector<vector<int>>edges{{0,1},{0,2},{0,3},{1,3},{1,4},{2,3},{3,4}};
+    
+    addEdge(adj,edges);
+    vector<int>visited(v+1,0);
+    cout<<" BFS Traversal "<<endl;
+    dfs(adj,visited,0);
+
     return 0;
 }
-    
