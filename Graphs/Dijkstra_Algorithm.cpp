@@ -5,40 +5,40 @@
 
 using namespace std;
 
-const int INF = numeric_limits<int>::max();  // Infinity
+const int INF = numeric_limits<int>::max();  // Represents infinity
 
-// Edge structure to store vertices and their costs
+// Structure to represent an edge from one node to another with a weight
 struct Edge {
-    int vertex, weight;
+    int to;      // Destination node
+    int weight;  // Cost to reach 'to' from current node
 };
 
-// Comparator for the priority queue
-bool operator>(const pair<int, int>& a, const pair<int, int>& b) {
-    return a.second > b.second;
-}
-
-// Dijkstra's Algorithm function
-vector<int> dijkstra(int source, int vertices, vector<vector<Edge>>& adjList) {
-    vector<int> dist(vertices, INF); // Distance from source to each vertex
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-    
+// Dijkstra's algorithm to find shortest paths from 'source' to all other nodes
+vector<int> dijkstra(int source, int n, vector<vector<Edge>>& graph) {
+    vector<int> dist(n, INF);  // Distance from source to each node
     dist[source] = 0;
-    pq.push({source, 0});
+
+    // Min-heap priority queue: {distance, node}
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+    pq.push({0, source});
 
     while (!pq.empty()) {
-        int u = pq.top().first;
-        int d = pq.top().second;
+        int currDist = pq.top().first;
+        int currNode = pq.top().second;
         pq.pop();
 
-        if (d != dist[u]) continue; // Ignore outdated distance
+        // Skip if we already found a better path
+        if (currDist > dist[currNode]) continue;
 
-        for (const Edge& e : adjList[u]) {
-            int v = e.vertex;
-            int w = e.weight;
+        // Explore neighbors
+        for (const Edge& edge : graph[currNode]) {
+            int nextNode = edge.to;
+            int weight = edge.weight;
 
-            if (dist[u] + w < dist[v]) {
-                dist[v] = dist[u] + w;
-                pq.push({v, dist[v]});
+            // Relaxation step
+            if (dist[currNode] + weight < dist[nextNode]) {
+                dist[nextNode] = dist[currNode] + weight;
+                pq.push({dist[nextNode], nextNode});
             }
         }
     }
@@ -47,25 +47,29 @@ vector<int> dijkstra(int source, int vertices, vector<vector<Edge>>& adjList) {
 }
 
 int main() {
-    int vertices = 5; // Number of vertices
-    vector<vector<Edge>> adjList(vertices);
+    int n = 5;  // Number of nodes
+    vector<vector<Edge>> graph(n);
 
-    // Add edges
-    adjList[0].push_back({1, 10});
-    adjList[0].push_back({4, 3});
-    adjList[1].push_back({2, 2});
-    adjList[1].push_back({4, 4});
-    adjList[2].push_back({3, 9});
-    adjList[3].push_back({2, 7});
-    adjList[4].push_back({1, 1});
-    adjList[4].push_back({2, 8});
+    // Add directed edges: from → to with weight
+    graph[0].push_back({1, 10});
+    graph[0].push_back({4, 3});
+    graph[1].push_back({2, 2});
+    graph[1].push_back({4, 4});
+    graph[2].push_back({3, 9});
+    graph[3].push_back({2, 7});
+    graph[4].push_back({1, 1});
+    graph[4].push_back({2, 8});
 
     int source = 0;
-    vector<int> distances = dijkstra(source, vertices, adjList);
+    vector<int> shortestDistances = dijkstra(source, n, graph);
 
-    cout << "Vertex\tDistance from Source" << endl;
-    for (int i = 0; i < vertices; ++i) {
-        cout << i << "\t" << distances[i] << endl;
+    // Print results
+    cout << "Node\tShortest Distance from Node " << source << "\n";
+    for (int i = 0; i < n; ++i) {
+        if (shortestDistances[i] == INF)
+            cout << i << "\t" << "Unreachable\n";
+        else
+            cout << i << "\t" << shortestDistances[i] << "\n";
     }
 
     return 0;
