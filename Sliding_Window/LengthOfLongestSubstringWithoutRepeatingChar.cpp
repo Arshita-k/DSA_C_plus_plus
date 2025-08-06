@@ -1,28 +1,59 @@
+// Given a string s, find the length of the longest substring without duplicate characters.
 #include <bits/stdc++.h>
 using namespace std;
 
-//length of longest substring
-//variable size window k
-
-void brute(string S)
+int LongestSubstring(string s)
 {
-    vector<int> chars(128,-1);
-    int max_len=0;
-    int start=-1;
-    for(int i=0;i<S.size();i++)
+    int len=s.length()-1;
+    unordered_set<char>hashset;
+    int res=-1;
+    //naive approach (track for each character of string)
+    for(int i=0;i<=len;i++)
     {
-        if(chars[S[i]]>start)
+        //start from s[i] to s[len-1]
+        for(int j=i;j<=len;j++)
         {
-            start=chars[S[i]];
+            if(hashset.find(s[j])!=hashset.end())
+            {
+                hashset.clear();
+                break;
+                
+            }
+            else
+            {
+                res=max(res,j-i+1);
+                hashset.insert(s[j]);
+            }
         }
-        chars[S[i]]=i;
-        max_len=max(max_len,i-start);
     }
-    cout<<max_len;
+    return res;
 }
 
-int main()
+int LongestSubstringApp2(string s)
 {
-    string str="practicemakesamanperfect";
-    brute(str);
+    int len=s.length()-1;
+    int res=-1;
+    //two ppointer
+    int left=0,right=0;
+    vector<int>vis(26,0);
+    while(right<=len)
+    {
+        while(vis[s[right]-'a']==1)
+        {
+            vis[s[left]-'a']--;
+            left++;
+        }
+        vis[s[right]-'a']++;
+        res=max(res,(right-left+1));
+        right++;
+    }
+    return res;
+}
+int main() {
+    string s = "abcabcbb";
+    string t = "pwwkew";
+    string r=  "bbbbb";
+    cout<<LongestSubstring(s)<<endl;
+    cout<<LongestSubstringApp2(t);
+    return 0;
 }
